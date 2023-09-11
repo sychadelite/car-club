@@ -1,0 +1,71 @@
+﻿@using WebAppCarClub.Data.Enum;
+@using WebAppCarClub.ViewModels;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model CreateClubViewModel
+
+@{
+    ViewData["Title"] = "Create Club";
+}
+
+<div class="container">
+    <header class="header">
+        <h1 id="title" class="text-center">Club Create</h1>
+        <p id="description" class="text-center">
+            Thank you for taking the time to help us improve the platform
+        </p>
+    </header>
+    <div class="form-wrap">
+        <form method="post" asp-action="Create" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" id="UserId" name="UserId" asp-for="UserId" />
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Title</label>
+                <input asp-for="Title" class="form-control" placeholder="Enter Title">
+                <div id="Title" class="form-text">Consider to make a unique and readable title for user.</div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Describe the club here..."></textarea>
+                <div id="Description" class="form-text">Consider to make an informative description for user.</div>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ClubCategory" class="form-label">Club Category</label>
+                <select class="form-select" asp-for="ClubCategory" asp-items="@Html.GetEnumSelectList<ClubCategory>()">
+                    <option>-- Select Category --</option>
+                </select>
+                <div id="ClubCategory" class="form-text">Consider to set a provided category.</div>
+                <span asp-validation-for="ClubCategory" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address.Street" class="form-label">Street</label>
+                <input asp-for="Address.Street" class="form-control" placeholder="Enter Street">
+                <div id="Street" class="form-text">Consider to set a valid street on it.</div>
+                <span asp-validation-for="Address.Street" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address.City" class="form-label">City</label>
+                <input asp-for="Address.City" class="form-control" placeholder="Enter City">
+                <div id="City" class="form-text">Consider to set a valid city on it.</div>
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address.State" class="form-label">State</label>
+                <input asp-for="Address.State" class="form-control" placeholder="Enter State">
+                <div id="State" class="form-text">Consider to set a valid state on it.</div>
+                <span asp-validation-for="Address.State" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Image" class="form-label">Image</label>
+                <input asp-for="Image" class="form-control" type="file">
+                <div id="Image" class="form-text">Consider to upload a contextual image that describe this creation.</div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

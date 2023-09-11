@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using WebAppCarClub.ViewModels
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="container d-flex flex-wrap align-items-center @(TempData["Error"] != null ? "justify-content-evenly" : "justify-content-center")" style="min-height: 80vh;">
+    @if (TempData["Error"] != null)
+    {
+        <div class="col-md-4">
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Sorry!</b> - @TempData["Error"]</span>
+            </div>
+        </div>
+    }
+    <div class="@(TempData["Error"] != null ? "col-md-6" : "col-md-12")" style="@(TempData["Error"] != null ? "" : "max-width: 30rem;")">
+        <div class="row justify-content-center">
+            <form asp-action="Login" class="row mb-3 g-3">
+                <legend><h4>Login to your account</h4></legend>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-12">
+                    <label asp-for="EmailAddress" class="form-label"></label>
+                    <input asp-for="EmailAddress" type="email" class="form-control">
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                </div>
+                <div class="col-md-12">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="password" class="form-control">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="col-md-12">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <a class="text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

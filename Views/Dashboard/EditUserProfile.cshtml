@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using WebAppCarClub.ViewModels
+@model EditUserDashboardViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container">
+    <header class="header">
+        <h1 id="title" class="text-center">Edit Your Profile</h1>
+        <p id="description" class="text-center">
+            @User.GetUserId()
+            <br />
+            @User.Identity.Name
+        </p>
+    </header>
+    <div class="form-wrap">
+        <form method="post" asp-action="EditUserProfile" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" id="Id" name="Id" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="Speed" class="form-label">Speed</label>
+                <input asp-for="Speed" class="form-control" placeholder="Enter Speed">
+                <div id="Speed" class="form-text">Consider to make an honestly speed of you.</div>
+                <span asp-validation-for="Speed" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Mileage" class="form-label">Mileage</label>
+                <input asp-for="Mileage" class="form-control" placeholder="Enter Mileage">
+                <div id="Mileage" class="form-text">Consider to make an honestly mileage of you.</div>
+                <span asp-validation-for="Mileage" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="City" class="form-label">City</label>
+                <input asp-for="City" class="form-control" placeholder="Enter City">
+                <div id="City" class="form-text">Consider to set a valid city on it.</div>
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="State" class="form-label">State</label>
+                <input asp-for="State" class="form-control" placeholder="Enter State">
+                <div id="State" class="form-text">Consider to set a valid state on it.</div>
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Image" class="form-label">Profile Image</label>
+                <input asp-for="Image" class="form-control" type="file">
+                <div id="Image" class="form-text">Consider to upload a contextual image that describe this creation.</div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
