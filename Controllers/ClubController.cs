@@ -34,12 +34,20 @@ namespace WebAppCarClub.Controllers
         public IActionResult Create()
         {
             // Identity to know who's created the data
-            var currentUserId = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var createClubViewModel = new CreateClubViewModel
+            var currentUserId = _httpContextAccessor.HttpContext?.User?.GetUserId();
+            if (currentUserId != null)
             {
-                UserId = currentUserId
-            };
-            return View(createClubViewModel);
+                var createClubViewModel = new CreateClubViewModel
+                {
+                    UserId = currentUserId
+                };
+
+                return View(createClubViewModel);
+            } 
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
@@ -51,19 +59,20 @@ namespace WebAppCarClub.Controllers
 
                 var club = new Club
                 {
-                    UserId = clubVM.UserId, // Identity to know who's created the data
                     Title = clubVM.Title,
                     Description = clubVM.Description,
                     Image = result.Url.ToString(),
+                    ClubCategory = clubVM.ClubCategory,
                     Address = new Address
                     {
                         Street = clubVM.Address.Street,
                         State = clubVM.Address.State,
                         City = clubVM.Address.City
-                    }
+                    },
+                    UserId = clubVM.UserId
                 };
 
-                _clubRepository.Add(club);
+                var createdClub = await _clubRepository.DapperCreateClub(club);
                 return RedirectToAction("Index");
             }
             else
@@ -132,6 +141,7 @@ namespace WebAppCarClub.Controllers
                     Title = clubVM.Title,
                     Description = clubVM.Description,
                     Image = photoResult.Url.ToString(),
+                    ClubCategory = clubVM.ClubCategory,
                     AddressId = clubVM.AddressId,
                     Address = clubVM.Address
                 };
@@ -152,7 +162,7 @@ namespace WebAppCarClub.Controllers
             if (clubDetails != null)
             {
                 return View(clubDetails);
-            } 
+            }
             else
             {
                 return View("Error");
@@ -167,7 +177,7 @@ namespace WebAppCarClub.Controllers
             {
                 _clubRepository.Delete(clubDetails);
                 return RedirectToAction("Index");
-            } 
+            }
             else
             {
                 return View("Error");

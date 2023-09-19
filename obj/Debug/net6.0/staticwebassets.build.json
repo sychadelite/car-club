@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HC6CFtoNvW1ihX3EwXUsX5pYqYITgecFZqHhHhYmlDI=",
+  "Hash": "6011iN9308TCtZZ3m5ikmwslQTcWzws8RQVTazgT5v0=",
   "Source": "WebAppCarClub",
   "BasePath": "_content/WebAppCarClub",
   "Mode": "Default",
@@ -49,6 +49,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\WebAppCarClub.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\wwwroot\\assets\\image\\car.png",
+      "SourceId": "WebAppCarClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\wwwroot\\",
+      "BasePath": "_content/WebAppCarClub",
+      "RelativePath": "assets/image/car.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\image\\car.png"
+    },
+    {
+      "Identity": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\wwwroot\\assets\\svg\\car.svg",
+      "SourceId": "WebAppCarClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\wwwroot\\",
+      "BasePath": "_content/WebAppCarClub",
+      "RelativePath": "assets/svg/car.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\svg\\car.svg"
     },
     {
       "Identity": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\wwwroot\\css\\site.css",

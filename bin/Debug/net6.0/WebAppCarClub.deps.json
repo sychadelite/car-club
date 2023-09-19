@@ -9,6 +9,7 @@
       "WebAppCarClub/1.0.0": {
         "dependencies": {
           "CloudinaryDotNet": "1.22.0",
+          "Dapper": "2.0.151",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.21",
           "Microsoft.EntityFrameworkCore": "6.0.21",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
@@ -29,6 +30,14 @@
           "lib/netstandard2.0/CloudinaryDotNet.dll": {
             "assemblyVersion": "1.22.0.0",
             "fileVersion": "1.22.0.0"
+          }
+        }
+      },
+      "Dapper/2.0.151": {
+        "runtime": {
+          "lib/net5.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.151.35995"
           }
         }
       },
@@ -924,6 +933,13 @@
       "sha512": "sha512-kdyqW/TDtBebidMp6Nr3CWb6TmpEBKBFFDq1vSnmr/Q2NV09oRZzaMhAhaZTYpN7TVQiYHRhPs9aPzSS6EBCoA==",
       "path": "cloudinarydotnet/1.22.0",
       "hashPath": "cloudinarydotnet.1.22.0.nupkg.sha512"
+    },
+    "Dapper/2.0.151": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mMcZgx1lim0/i1Ozu+lgnBM4GwNIHpCuxV6BV2ovsEfZAXRAq4jb6RIhxGDcVjtmXMLPpdp85jHPdDjBMMwejw==",
+      "path": "dapper/2.0.151",
+      "hashPath": "dapper.2.0.151.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",

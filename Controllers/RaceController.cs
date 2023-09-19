@@ -36,11 +36,18 @@ namespace WebAppCarClub.Controllers
         {
             // Identity to know who's created the data
             var currentUserId = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var createRaceViewModel = new CreateRaceViewModel
+            if (currentUserId != null)
             {
-                UserId = currentUserId
-            };
-            return View(createRaceViewModel);
+                var createRaceViewModel = new CreateRaceViewModel
+                {
+                    UserId = currentUserId
+                };
+                return View(createRaceViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
@@ -56,6 +63,7 @@ namespace WebAppCarClub.Controllers
                     Title = raceVM.Title,
                     Description = raceVM.Description,
                     Image = result.Url.ToString(),
+                    RaceCategory = raceVM.RaceCategory,
                     Address = new Address
                     {
                         Street = raceVM.Address.Street,
@@ -133,6 +141,7 @@ namespace WebAppCarClub.Controllers
                     Title = raceVM.Title,
                     Description = raceVM.Description,
                     Image = photoResult.Url.ToString(),
+                    RaceCategory = raceVM.RaceCategory,
                     AddressId = raceVM.AddressId,
                     Address = raceVM.Address
                 };

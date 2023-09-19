@@ -19,8 +19,14 @@
         </p>
     </header>
     <div class="form-wrap">
-        <form method="post" asp-action="EditUserProfile" enctype="multipart/form-data" autocomplete="off">
+        <form id="form-edit-user-profile" method="post" asp-action="EditUserProfile" enctype="multipart/form-data" autocomplete="off">
             <input type="hidden" id="Id" name="Id" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="Bio" class="form-label"></label>
+                <textarea asp-for="Bio" class="form-control" placeholder="Enter Bio"></textarea>
+                <div id="Bio" class="form-text">Consider to make an impressive bio of you.</div>
+                <span asp-validation-for="Bio" class="text-danger"></span>
+            </div>
             <div class="mb-3">
                 <label asp-for="Speed" class="form-label">Speed</label>
                 <input asp-for="Speed" class="form-control" placeholder="Enter Speed">
@@ -51,7 +57,49 @@
                 <div id="Image" class="form-text">Consider to upload a contextual image that describe this creation.</div>
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <div class="d-flex flex-wrap justify-content-between align-items-center w-100">
+            <button type="submit" class="btn btn-primary" form="form-edit-user-profile">Submit</button>
+            <a class="btn btn-outline-danger" onclick="deleteUser()">Delete Account</a>
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function deleteUser() 
+    {
+        // Prompt the user for confirmation
+        if (confirm("Are you sure you want to delete your account?")) {
+            // Get the user ID or any necessary data you need to pass to the controller
+            var userId = '@Model.Id';
+
+            // Send a POST request to the DeleteUserProfile action
+            fetch("/Dashboard/DeleteUserProfile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id: userId }) // Pass the user ID as JSON
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Successful deletion, you can redirect or perform any other actions here
+                        alert("Account deleted successfully.");
+                        // Redirect to another page, if needed
+                        if (userId == '@User.GetUserId()')
+                            window.location.href = "/Account/Logout";
+                    } else if (response.status === 404) {
+                        // Handle 404 (Not Found) error
+                        alert("User not found.");
+                    } else {
+                        // Handle other errors
+                        alert("An error occurred while deleting the account.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred while deleting the account.");
+                });
+        }
+    }
+</script>

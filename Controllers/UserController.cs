@@ -7,7 +7,7 @@ namespace WebAppCarClub.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
-        public UserController(IUserRepository userRepository) 
+        public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -35,14 +35,29 @@ namespace WebAppCarClub.Controllers
         public async Task<IActionResult> Detail(string id)
         {
             var user = await _userRepository.GetUserById(id);
-            var userDetailViewModel = new UserDetailViewModel()
+            if (user != null)
             {
-                Id = user.Id,
-                UserName = user.UserName,
-                Speed = user.Speed,
-                Mileage = user.Mileage,
-            };
-            return View(userDetailViewModel);
+                var userClubsAndRacesDTO = await _userRepository.DapperGetUserClubsAndRaces(user.Id);
+                var userDetailViewModel = new UserDetailViewModel()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Speed = user.Speed,
+                    Mileage = user.Mileage,
+                    ProfileImageUrl = user.ProfileImageUrl,
+                    Bio = user.Bio,
+                    Clubs = userClubsAndRacesDTO.UserClubs,
+                    Races = userClubsAndRacesDTO.UserRaces
+                };
+
+                ViewData["Message"] = userClubsAndRacesDTO;
+
+                return View(userDetailViewModel);
+            } 
+            else
+            {
+                return View("Error");
+            }
         }
     }
 }

@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\WebAppCarClub.bundle.scp.css"
     },
     {
+      "Id": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\wwwroot\\assets\\image\\car.png",
+      "PackagePath": "staticwebassets\\assets\\image\\car.png"
+    },
+    {
+      "Id": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\wwwroot\\assets\\svg\\car.svg",
+      "PackagePath": "staticwebassets\\assets\\svg\\car.svg"
+    },
+    {
       "Id": "C:\\laragon\\www\\website\\asp.net\\WebAppCarClub\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

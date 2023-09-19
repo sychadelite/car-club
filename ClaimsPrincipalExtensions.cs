@@ -4,9 +4,12 @@ namespace WebAppCarClub
 {
     public static class ClaimsPrincipalExtensions
     {
-        public static string GetUserId(this ClaimsPrincipal user)
+        public static string GetUserId(this ClaimsPrincipal principal)
         {
-            return user.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (principal == null)
+                throw new ArgumentNullException(nameof(principal));
+
+            return principal.FindFirstValue(ClaimTypes.NameIdentifier);
         }
     }
 }

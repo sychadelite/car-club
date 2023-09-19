@@ -35,12 +35,22 @@ namespace WebAppCarClub.Controllers
                 RegionInfo myRI = new RegionInfo(ipInfo.Country);
                 ipInfo.Country = myRI.EnglishName;
 
+                homeVM.Ip = ipInfo.Ip;
+                //homeVM.Hostname = ipInfo.Hostname;
                 homeVM.City = ipInfo.City;
-                homeVM.State = ipInfo.Region;
+                homeVM.Region = ipInfo.Region;
+                homeVM.Country = ipInfo.Country;
+                homeVM.Location = ipInfo.Location;
+                homeVM.Org = ipInfo.Org;
+                //homeVM.Postal = ipInfo.Postal;
+                homeVM.Timezone = ipInfo.Timezone;
+
+                homeVM.LatestClub = await _clubRepository.DapperGetClubLatest();
+
                 if (homeVM.City != null)
                 {
-                    homeVM.Clubs = await _clubRepository.GetAllClubsByCity(homeVM.City);
-                } 
+                    homeVM.Clubs = await _clubRepository.DapperGetClubsByCity(homeVM.City);
+                }
                 else
                 {
                     homeVM.Clubs = null;

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 using WebAppCarClub.Data;
 using WebAppCarClub.Data.Interfaces;
 using WebAppCarClub.Models;
@@ -9,11 +11,13 @@ namespace WebAppCarClub.Repository
     {
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly DapperContext _dapperContext;
 
-        public DashboardRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public DashboardRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, DapperContext dapperContext)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _dapperContext = dapperContext;
         }
         public async Task<List<Club>> GetAllUserClubs()
         {
@@ -37,6 +41,42 @@ namespace WebAppCarClub.Repository
         public async Task<User> GetUserByIdNoTracking(string id)
         {
             return await _context.Users.Where(u => u.Id == id).AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        // Dapper
+        public async Task<User> DapperGetUserProfileImage(string id)
+        {
+            var query = "SELECT ProfileImageUrl FROM AspNetUsers WHERE Id = @Id";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var userProfileImage = await connection.QuerySingleOrDefaultAsync<User>(query, new { id });
+                return userProfileImage;
+            }
+        }
+        public async Task DapperUpdateUser(User user)
+        {
+            var query = "UPDATE AspNetUsers SET UserName = @UserName, Speed = @Speed, Mileage = @Mileage, ProfileImageUrl = @ProfileImageUrl, City = @City, State = @State, Bio = @Bio WHERE Id = @Id";
+            var parameters = new DynamicParameters();
+            parameters.Add("Id", user.Id, DbType.String);
+            parameters.Add("UserName", user.UserName, DbType.String);
+            parameters.Add("Speed", user.Speed, DbType.Int32);
+            parameters.Add("Mileage", user.Mileage, DbType.Int32);
+            parameters.Add("ProfileImageUrl", user.ProfileImageUrl, DbType.String);
+            parameters.Add("City", user.City, DbType.String);
+            parameters.Add("State", user.State, DbType.String);
+            parameters.Add("Bio", user.Bio, DbType.String);
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
+        }
+        public async Task DapperDeleteUser(string id)
+        {
+            var query = "DELETE FROM AspNetUsers WHERE Id = @Id";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, new { id });
+            }
         }
 
         public bool Update(User user)

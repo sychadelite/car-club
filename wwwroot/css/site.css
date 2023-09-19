@@ -1,18 +1,138 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+/* Stepper Registration */
+#register-page #multi-step-form {
+    overflow-x: hidden;
+}
+
+#register-page .step-container {
+    position: relative;
+    text-align: center;
+    transform: translateY(-43%);
+}
+
+#register-page .step-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #007bff;
+    line-height: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    cursor: pointer; /* Added cursor pointer */
+}
+
+#register-page .step-line {
+    position: absolute;
+    top: 16px;
+    left: 50px;
+    width: calc(100% - 100px);
+    height: 2px;
+    background-color: #007bff;
+    z-index: -1;
+}
+
+/* Users (Racers) List */
+#racers-index-page .followed-user-entry {
+    padding: 0px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 4px 4px 4px 4px;
+    border-color: #e1e8ed;
+    border-width: 1px;
+    border-style: solid;
+    max-width: 420px;
+    min-height: 280px;
+}
+
+#racers-index-page .followed-user-top {
+    height: 100px;
+    background-color: #f8f8f8;
+    border-radius: 4px 4px 0px 0px;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    background-color: #f8f8f8;
+    background-image: url('http://placekitten.com/g/500/200');
+    /*background-size: cover;*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top left;
+    cursor: pointer;
+    border-bottom-color: #e1e8ed;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+#racers-index-page .followed-user-bottom {
+    padding-left: 12px;
+    background-color: white;
+}
+
+
+#racers-index-page .followed-user-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 5px !important;
+    border-color: #fff;
+    border-width: 3px;
+    border-style: solid;
+    margin-top: -35px;
+    cursor: pointer;
+}
+
+#racers-index-page .followed-user-img-wrapper {
+}
+
+#racers-index-page .followed-user-entry img {
+    border-radius: 30px !important;
+}
+
+#racers-index-page .followed-user-name {
+    color: rgb(41, 47, 51);
+    margin-top: 6px;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+#racers-index-page .followed-user-name:hover {
+    text-decoration: underline;
+}
+
+#racers-index-page .followed-user-screenname {
+    color: rgb(102, 117, 127);
+    margin-top: 0px;
+    margin-bottom: 4px;
+    font-size: 0.95em;
+    cursor: pointer;
+}
+
+#racers-index-page .user-screenname-span:hover {
+    text-decoration: underline;
+}
+
+
+#racers-index-page .followed-user-description {
+    color: rgb(102, 117, 127);
+    margin-bottom: 10px;
 }

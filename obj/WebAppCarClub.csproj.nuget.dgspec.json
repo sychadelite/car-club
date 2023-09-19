@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[1.22.0, )"
             },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.151, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.21, )"
@@ -61,6 +65,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.21, )"
+            },
+            "StructureMap": {
+              "target": "Package",
+              "version": "[4.7.1, )"
+            },
+            "StructureMap.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[2.0.0, )"
             }
           },
           "imports": [

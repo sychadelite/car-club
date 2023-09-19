@@ -19,14 +19,15 @@ namespace WebAppCarClub.Controllers
             _photoService = photoService;
         }
 
-        private void MapUserEdit(User user, EditUserDashboardViewModel editVM, ImageUploadResult photoResult = null)
+        private void MapUserEdit(User user, EditUserDashboardViewModel editVM, ImageUploadResult photoResult = null, string defaultPhoto = null)
         {
             user.Id = editVM.Id;
             user.Speed = editVM.Speed;
             user.Mileage = editVM.Mileage;
-            user.ProfileImageUrl = photoResult != null ? photoResult.Url.ToString() : null;
+            user.ProfileImageUrl = photoResult != null ? photoResult.Url.ToString() : defaultPhoto;
             user.City = editVM.City;
             user.State = editVM.State;
+            user.Bio = editVM.Bio;
         }
 
         public async Task<IActionResult> Index()
@@ -59,6 +60,7 @@ namespace WebAppCarClub.Controllers
                 ProfileImageUrl = user.ProfileImageUrl,
                 City = user.City,
                 State = user.State,
+                Bio = user.Bio
             };
 
             return View(editUserModel);
@@ -78,10 +80,11 @@ namespace WebAppCarClub.Controllers
             if (user.ProfileImageUrl == null || user.ProfileImageUrl == "")
             {
                 var photoResult = editVM.Image != null ? await _photoService.AddPhotoAsync(editVM.Image) : null;
-                
+
                 MapUserEdit(user, editVM, photoResult);
 
-                _dashboardRepository.Update(user);
+                //_dashboardRepository.Update(user);
+                await _dashboardRepository.DapperUpdateUser(user);
 
                 return RedirectToAction("Index");
             } 
@@ -101,11 +104,37 @@ namespace WebAppCarClub.Controllers
 
                 var photoResult = editVM.Image != null ? await _photoService.AddPhotoAsync(editVM.Image) : null;
 
-                MapUserEdit(user, editVM, photoResult);
+                var userDefaultDP = await _dashboardRepository.DapperGetUserProfileImage(editVM.Id);
 
-                _dashboardRepository.Update(user);
+                MapUserEdit(user, editVM, photoResult, userDefaultDP.ProfileImageUrl);
+
+                //_dashboardRepository.Update(user);
+                await _dashboardRepository.DapperUpdateUser(user);
 
                 return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserProfile([FromBody] EditUserDashboardViewModel editVM)
+        {
+            try
+            {
+                var user = await _dashboardRepository.GetUserById(editVM.Id);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                await _dashboardRepository.DapperDeleteUser(editVM.Id);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
     }

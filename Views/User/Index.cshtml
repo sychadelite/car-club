@@ -9,47 +9,37 @@
     ViewData["Title"] = "Users Page";
 }
 
-<section class="flush-with-above">
+<section id="racers-index-page" class="flush-with-above">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <table class="table table-hover align-items-center table-borderless">
-                    <tbody>
-                        @foreach (var user in Model)
-                        {
-                            <tr class="bg-white">
-                                <th scope="row">
-                                    <div class="media align-items-center">
-                                        <img alt="Image profile avatar" src="@user.ProfileImageUrl" class="avatar">
-                                        <div class="media-body">
-                                            <span class="h6 mb-0">@user.UserName</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <td>
-                                    <a class="btn btn-outline-primary" asp-controller="User" asp-action="Detail" asp-route-id="@user.Id">
-                                        View Profile
-                                    </a>
-                                </td>
-
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var user in Model)
+                {
+                    <div class="col-md-3">
+                        <br>
+                        <div class="followed-user-entry">
+                            <div onclick="location.href='/users';" class="followed-user-top" style="background-image: url(@(user.ProfileImageUrl ?? "http://placekitten.com/g/550/400"))">
+                            </div>
+                            <div class="followed-user-bottom">
+                                <img onclick="location.href='/users';" class="followed-user-img" src="@(user.ProfileImageUrl ?? "http://placekitten.com/g/300/300")" />
+                                <h2 onclick="location.href='/users';" class="followed-user-name text-truncate"><small>@user.UserName</small></h2>
+                                <p class="followed-user-screenname text-truncate">
+                                    <small>@@<span onclick="location.href='/users';" class="user-screenname-span">@user.Id</span></small>
+                                </p>
                                 @{
-                                    var mileage = user.Mileage == null ? "?" : user.Mileage.ToString();
-                                    var speen = user.Speed == null ? "?" : user.Speed.ToString();
+                                    var speed = user.Speed.HasValue ? user.Speed.Value.ToString() : "??";
+                                    var mileage = user.Mileage.HasValue ? user.Mileage.Value.ToString() : "??";
                                 }
-                                <td>@mileage mile at @speen mph</td>
-                                @* <td><i class="icon-location"></i> @user.Location</td> *@
-                            </tr>
-                            <tr class="table-divider">
-                                <th></th>
-                                <td></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                <p class="followed-user-description">Got @mileage mile at @speed mph record</p>
+                                <a class="btn btn-outline-secondary mb-3" asp-controller="User" asp-action="Detail" asp-route-id="@user.Id">
+                                    Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                }
             </div>
-            <!--end of col-->
         </div>
-        <!--end of row-->
     </div>
-    <!--end of container-->
 </section>
